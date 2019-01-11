@@ -368,7 +368,7 @@ class Salesforce(object):
                    SELECT Id FROM Lead WHERE Email = "waldo@somewhere.com"
         * include_deleted -- True if deleted records should be included
         """
-        url = self.base_url + ('queryAll/' if include_deleted else 'query/')
+        url = self.base_url + ('analytics/reports/' if include_deleted else 'query/')
         params = {'q': query}
         # `requests` will correctly encode the query string passed as `params`
         result = self._call_salesforce('GET', url, name='query',
@@ -402,7 +402,7 @@ class Salesforce(object):
                    .format(instance=self.sf_instance,
                            next_record_url=next_records_identifier))
         else:
-            endpoint = 'queryAll' if include_deleted else 'query'
+            endpoint = 'analytics/reports' if include_deleted else 'query'
             url = self.base_url + '{query_endpoint}/{next_record_id}'
             url = url.format(query_endpoint=endpoint,
                              next_record_id=next_records_identifier)
